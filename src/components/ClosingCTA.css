@@ -1,0 +1,75 @@
+.cta { padding-top: 0; }
+
+.cta__panel {
+  --px: 50%;
+  --py: 50%;
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-8) var(--space-5);
+  border-radius: var(--radius-2xl);
+  /* Deeper end of the Airbnb gradient keeps white body text above 4.5:1 */
+  background: linear-gradient(135deg, #d70466 0%, #bd1e59 100%);
+  color: var(--color-text-inverse);
+  text-align: center;
+  isolation: isolate;
+}
+.cta__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(500px circle at var(--px) var(--py), rgba(255, 255, 255, 0.18), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+@media (hover: hover) {
+  .cta__panel:hover::before { opacity: 1; }
+}
+@media (min-width: 950px) { .cta__panel { padding: var(--space-10) var(--space-8); } }
+
+.cta__title {
+  font-size: var(--fs-display);
+  font-weight: var(--fw-heavy);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-display);
+}
+.cta__lede {
+  max-width: 40ch;
+  margin: var(--space-5) auto 0;
+  font-size: var(--fs-lg);
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+.cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 56px;
+  padding: 16px 28px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+}
+.cta__btn svg { transition: transform var(--dur) var(--ease-out); }
+@media (hover: hover) {
+  .cta__btn:hover { box-shadow: var(--shadow-lg); }
+  .cta__btn:hover svg { transform: translateX(3px); }
+}
+.cta__btn:active { transform: scale(0.96); }
+.cta__btn:focus-visible, .cta__link:focus-visible { outline-color: #fff; }
+
+.cta__link {
+  font-weight: var(--fw-semibold);
+  text-underline-offset: 3px;
+}

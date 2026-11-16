@@ -1,0 +1,68 @@
+.faq__grid { display: grid; gap: var(--space-7); }
+@media (min-width: 950px) {
+  .faq__grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--space-9); }
+}
+
+/* ---------- Floating house ---------- */
+.faq__house-wrap {
+  width: min(240px, 60%);
+  margin-top: var(--space-7);
+  perspective: 800px;
+}
+@media (max-width: 949px) { .faq__house-wrap { display: none; } }
+
+.faq__house {
+  --rx: 0deg;
+  --ry: 0deg;
+  aspect-ratio: 200 / 210;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 600ms var(--ease-out);
+}
+.faq__house svg { animation: float 5s ease-in-out infinite; overflow: visible; }
+.faq__shadow { animation: shadow 5s ease-in-out infinite; transform-origin: 100px 190px; }
+@keyframes float { 50% { transform: translateY(-10px); } }
+@keyframes shadow { 50% { transform: translateY(10px) scale(0.86); opacity: 0.06; } }
+
+/* ---------- Accordion ---------- */
+.faq__list { border-top: 1px solid var(--color-border); }
+.faq__item { border-bottom: 1px solid var(--color-border); }
+.faq__item h3 { margin: 0; font-size: inherit; }
+
+.faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 72px;
+  padding: var(--space-4) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+}
+.faq__q:focus-visible { outline-offset: 4px; }
+.faq__chev {
+  flex: none;
+  transition: transform var(--dur) var(--ease-out);
+}
+.faq__item.is-open .faq__chev { transform: rotate(180deg); }
+
+/* Height animates via grid rows (0fr → 1fr), so no measuring in JS */
+.faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-slow) var(--ease-out);
+}
+.faq__item.is-open .faq__a { grid-template-rows: 1fr; }
+.faq__a-inner { overflow: hidden; }
+.faq__a p {
+  padding-bottom: var(--space-5);
+  max-width: 60ch;
+  color: var(--color-text-secondary);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+.faq__item.is-open .faq__a p { opacity: 1; transform: none; transition-delay: 80ms; }

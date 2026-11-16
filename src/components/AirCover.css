@@ -1,0 +1,62 @@
+.aircover { display: grid; gap: var(--space-7); }
+@media (min-width: 950px) {
+  .aircover { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--space-9); align-items: start; }
+  .aircover__intro { position: sticky; top: calc(var(--header-h) + var(--space-7)); }
+}
+
+.aircover__brand {
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-heavy);
+  letter-spacing: var(--tracking-tight);
+}
+.aircover__brand span { color: var(--color-rausch); }
+
+.aircover__table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.aircover__table thead th {
+  padding-bottom: var(--space-3);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+}
+.aircover__table thead .aircover__col--us { color: var(--color-text); }
+
+.aircover__table tbody tr {
+  border-top: 1px solid var(--color-border);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+.aircover__table.is-in tbody tr { opacity: 1; transform: none; }
+@media (hover: hover) {
+  .aircover__table.is-in tbody tr:hover { background: var(--color-surface-alt); transition-delay: 0ms !important; }
+}
+
+.aircover__table tbody th {
+  padding: var(--space-4) var(--space-3) var(--space-4) 0;
+  font-weight: inherit;
+}
+.aircover__title { display: block; font-weight: var(--fw-semibold); }
+.aircover__body { display: block; margin-top: 2px; font-size: var(--fs-sm); color: var(--color-text-secondary); }
+
+.aircover__col { width: 96px; text-align: center; }
+.aircover__col svg { margin-inline: auto; }
+@media (max-width: 559px) { .aircover__col { width: 72px; } }
+
+/* The tick pops in, then its stroke draws */
+.aircover__check { transform: scale(0); }
+.aircover__check path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.aircover__table.is-in .aircover__check { animation: tick-pop 350ms var(--ease-out) both; }
+.aircover__table.is-in .aircover__check path { animation: tick-draw 300ms var(--ease-out) both; animation-delay: inherit; }
+@keyframes tick-pop { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes tick-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .aircover__table tbody tr { opacity: 1; transform: none; }
+  .aircover__check { transform: none; }
+  .aircover__check path { stroke-dashoffset: 0; }
+}
